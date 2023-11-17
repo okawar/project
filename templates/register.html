@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='window.css')}}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    Лого
+                </div>
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="/" class="nav__link">Главная</a></li>
+                    <li class="nav__item"><a href="/cart" class="nav__link">Корзина</a></li>
+                    <li class="nav__item"><a href="/about" class="nav__link">О нас</a></li>
+                </ul>
+                <div class="nav__buttons">
+                    <a href="/register" class="nav__button">Регистрация</a>
+                    <a href="/login" class="nav__button">Вход</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <section class="register">
+        <div class="container">
+            <div class="window">
+                <p>Регистрация</p>
+                <form method="post">
+                    <input name="login" id="login" type="text" placeholder="Введите логин">
+                    <input name="password" id="password" type="password" placeholder="Введите пароль">
+                    <input name="password2" id="password2" type="password" placeholder="Подтвердите пароль">
+                    <input type="submit" value="Зарегистрироваться">
+                </form>
+            </div>
+        </div>
+    </section>
+    
+</body>
+</html>

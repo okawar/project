@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+    <title>Cart</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    Лого
+                </div>
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="/" class="nav__link">Главная</a></li>
+                    <li class="nav__item"><a href="/cart" class="nav__link">Корзина</a></li>
+                    <li class="nav__item"><a href="/about" class="nav__link">О нас</a></li>
+                </ul>
+                <div class="nav__buttons">
+                    <a href="/register" class="nav__button">Регистрация</a>
+                    <a href="/login" class="nav__button">Вход</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <section class="main">
+        <div class="container">
+            <div class="description">
+                Здесь будут ваши заказы
+            </div>
+            <div id="cart">
+                <div id="cart-info">
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2023 Dota cards. All rights reserved.</p>
+    </footer>
+
+
+    <script>
+        var cart = JSON.parse(localStorage.getItem("cart")) || [];
+        var cartContainer = document.getElementById("cart-info");
+
+        cartContainer.style.cssText = `
+            text-align: center;
+        `
+
+
+        if (cart.length > 0){
+            var descriptionElement = document.querySelector(".description");
+            descriptionElement.style.display = "none";
+        }
+    
+        cart.forEach(function(product) {
+            var productImage = document.createElement("img");
+            productImage.src = product.image;
+            productImage.alt = product.name;
+            cartContainer.appendChild(productImage);
+    
+            var productInfo = document.createElement("div");
+            productInfo.textContent = "Товар: " + product.name + ", Цена: " + product.price;
+            cartContainer.appendChild(productInfo);
+            productInfo.style.cssText = `
+                font-weight: 600;
+                margin: 10px 0 0 0;
+                font-size: 20px;
+            `
+    
+            var payButton = document.createElement("button");
+            payButton.textContent = "Оплатить";
+            payButton.addEventListener("click", function() {
+                alert("Оплачено: " + product.name);
+            });
+            payButton.style.cssText = `
+                padding: 20px 40px;
+                display: block;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: 600;
+                background: transparent;
+                border: 2px solid #fff;
+                color: #fff;
+                cursor: pointer;
+                margin: 20px 0 20px 35%;
+            `
+            cartContainer.appendChild(payButton);
+        });
+        var clearCartButton = document.createElement("button");
+        clearCartButton.textContent = "Очистить корзину";
+        clearCartButton.addEventListener("click", function() {
+            cart = [];
+            localStorage.removeItem("cart");
+
+            cartContainer.innerHTML = "";
+            descriptionElement.style.display = "block";
+        });
+        clearCartButton.style.cssText = `
+                padding: 20px 40px;
+                display: inline-block;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: 600;
+                background: transparent;
+                border: 2px solid #fff;
+                color: #fff;
+                margin: 0 0 0 -10px;
+                cursor: pointer;
+            `
+        cartContainer.append(clearCartButton);
+    </script>
+</body>
+</html>
