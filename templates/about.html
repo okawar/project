@@ -1,31 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
-    <title>About Us</title>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    Лого
-                </div>
-                <ul class="nav__list">
-                    <li class="nav__item"><a href="/" class="nav__link">Главная</a></li>
-                    <li class="nav__item"><a href="/cart" class="nav__link">Корзина</a></li>
-                    <li class="nav__item"><a href="/about" class="nav__link">О нас</a></li>
-                </ul>
-                <div class="nav__buttons">
-                    <a href="/register" class="nav__button">Регистрация</a>
-                    <a href="/login" class="nav__button">Вход</a>
-                </div>
-            </nav>
-        </div>
-    </header>
-    <section class="main">
+{% extends 'base.html' %}
+
+{% block content %} 
+    <section class="main" style="height: 100vh;">
         <div class="container">
             <div class="description">
                 <p>Это наш проект по вебу</p>
@@ -35,8 +11,10 @@
             </div>
         </div>
     </section>
-    <footer>
-        <p>&copy; 2023 Dota cards. All rights reserved.</p>
-    </footer>
-</body>
-</html>
+
+    {% endblock %}
+    
+    
+    {% block script %}  
+
+    {% endblock %}  

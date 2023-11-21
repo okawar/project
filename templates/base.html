@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}" type="text/css">
+    <title>Dota Project</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    Лого
+                </div>
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="/" class="nav__link">Главная</a></li>
+                    <li class="nav__item"><a href="/cart" class="nav__link">Корзина</a> 
+                        <div class="cart-counter" style="display: inline-block;">
+                            <span id="cart-count-nav">0</span>
+                        </div>
+                    </li>
+                    <li class="nav__item"><a href="/about" class="nav__link">О нас</a></li>
+                </ul>
+                <div class="nav__buttons">
+                    <a href="/register" class="nav__button">Регистрация</a>
+                    <a href="/login" class="nav__button">Вход</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    {% block content %} {% endblock %}
+
+    <footer>
+        <p>&copy; 2023 Dota cards. All rights reserved.</p>
+    </footer>
+
+    {% block script %} {% endblock %}
+
+    <script>
+       document.addEventListener("DOMContentLoaded", function () {
+            let cartCountElement = document.getElementById("cart-count-nav");
+
+            // Обновляем отображение счетчика на всех страницах
+            updateCartCount();
+
+            function updateCartCount() {
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                let count = cart.length;
+
+                // Уменьшаем счетчик на 1, если товар был удален
+                if (localStorage.getItem("removedItem") === "true") {
+                    count -= 1;
+                    localStorage.removeItem("removedItem");
+                }
+
+                cartCountElement.textContent = count;
+            }
+
+            function addToCart(product) {
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                cart.push(product);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                // Добавлен вызов updateCartCount
+                updateCartCount();
+            }
+
+            function removeFromCart(index) {
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                cart.splice(index, 1);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                // Устанавливаем флаг, что товар был удален
+                localStorage.setItem("removedItem", "true");
+                // Добавлен вызов updateCartCount
+                updateCartCount();
+            }
+
+            function clearCart() {
+                let cart = [];
+                localStorage.removeItem("cart");
+                localStorage.removeItem("removedItem");
+                // Добавлен вызов updateCartCount
+                updateCartCount();
+            }
+
+            // Добавляем обработчик события, которое будет вызываться при изменении корзины
+            window.addEventListener("storage", function (event) {
+                if (event.key === "cart" || event.key === "removedItem") {
+                    updateCartCount();
+                }
+            });
+        });
+    </script>
+    
+    
+</body>
+</html>

@@ -1,86 +1,62 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}" type="text/css">
-    <title>Dota Project</title>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    Лого
-                </div>
-                <ul class="nav__list">
-                    <li class="nav__item"><a href="/" class="nav__link">Главная</a></li>
-                    <li class="nav__item"><a href="/cart" class="nav__link">Корзина</a></li>
-                    <li class="nav__item"><a href="/about" class="nav__link">О нас</a></li>
-                </ul>
-                <div class="nav__buttons">
-                    <a href="/register" class="nav__button">Регистрация</a>
-                    <a href="/login" class="nav__button">Вход</a>
-                </div>
-            </nav>
-        </div>
-    </header>
+{% extends 'base.html' %}
+
+{% block content %} 
     <section class="main">
         <div class="container">
             <div class="cards">
                 <div class="card__row">
-                    <div class="card" id="card">
+                    <div class="card" id="card" data-product='{"name": "Dazzle - Dezun Viper", "price": 399, "image": "https://collectorsshop.ru/img/catalog/items/main_images/2023/08/1396.png"}'>
                         <img src="https://collectorsshop.ru/img/catalog/items/main_images/2023/08/1396.png" alt="123" class="card__img">
                         <div class="card__info">
                             <div class="card__info-name">Dazzle - Dezun Viper</div>
                             <div class="card__info-price">399 &#8381;</div>
-                            <button>Купить</button>
+                            <button class="buy-button">Купить</button>
                         </div>
                     </div>
                     
-                    <div class="card">
+                    <div class="card" data-product='{"name": "Anti-Mage - Turstarkuri Pilgrim", "price": 5999, "image": "https://collectorsshop.ru/img/catalog/items/main_images/2023/08/1409.png"}'>
                         <img src="https://collectorsshop.ru/img/catalog/items/main_images/2023/08/1409.png" alt="" class="card__img">
                         <div class="card__info">
                             <div class="card__info-name">Anti-Mage - Turstarkuri Pilgrim</div>
                             <div class="card__info-price">5999 &#8381;</div>
-                            <button>Купить</button>
+                            <button class="buy-button">Купить</button>
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card" data-product='{"name": "Marci - Brightfist", "price": 1299, "image": "https://collectorsshop.ru/img/catalog/items/main_images/2023/08/1395.png"}'>
                         <img src="https://collectorsshop.ru/img/catalog/items/main_images/2023/08/1395.png" alt="" class="card__img">
                         <div class="card__info">
                             <div class="card__info-name">Marci - Brightfist</div>
                             <div class="card__info-price">1299 &#8381;</div>
-                            <button>Купить</button>
+                            <button class="buy-button">Купить</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="card__row">
-                    <div class="card">
+                    <div class="card"  data-product='{"name": "Storm Spirit - Beast of Thunder", "price": 349, "image": "https://collectorsshop.ru/img/catalog/items/main_images/2023/08/1398.png"}'>
                         <img src="https://collectorsshop.ru/img/catalog/items/main_images/2023/08/1398.png" alt="123" class="card__img">
                         <div class="card__info">
                             <div class="card__info-name">Storm Spirit - Beast of Thunder
                                 </div>
                             <div class="card__info-price">349 &#8381;</div>
-                            <button>Купить</button>
+                            <button class="buy-button">Купить</button>
                         </div>
                     </div>
                     
-                    <div class="card">
+                    <div class="card" data-product='{"name": "Jakiro - Ancestral Heritage", "price": 299, "image": "https://collectorsshop.ru/img/catalog/items/main_images/2023/08/1397.png"}'>
                         <img src="https://collectorsshop.ru/img/catalog/items/main_images/2023/08/1397.png" alt="" class="card__img">
                         <div class="card__info">
                             <div class="card__info-name">Jakiro - Ancestral Heritage</div>
                             <div class="card__info-price">299 &#8381;</div>
-                            <button>Купить</button>
+                            <button class="buy-button">Купить</button>
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card" data-product='{"name": "Snapfire - Snailfire", "price": 1199, "image": "https://collectorsshop.ru/img/catalog/items/main_images/2023/08/1394.png}'>
                         <img src="https://collectorsshop.ru/img/catalog/items/main_images/2023/08/1394.png" alt="" class="card__img">
                         <div class="card__info">
                             <div class="card__info-name">Snapfire - Snailfire</div>
                             <div class="card__info-price">1199 &#8381;</div>
-                            <button>Купить</button>
+                            <button class="buy-button">Купить</button>
                         </div>
                     </div>
                 </div>
@@ -88,34 +64,9 @@
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2023 Dota cards. All rights reserved.</p>
-    </footer>
+    <div id="cart-count"></div>
+{% endblock %}
 
-    <script>
-        document.querySelectorAll(".card button").forEach(function(button, index) {
-            button.addEventListener("click", function() {
-                var cardInfo = document.querySelectorAll(".card__info")[index];
-                var productName = cardInfo.querySelector(".card__info-name").textContent;
-                var productPrice = cardInfo.querySelector(".card__info-price").textContent;
-                var productImage = document.querySelectorAll(".card__img")[index].src;
-    
-                var productInfo = {
-                    name: productName,
-                    price: productPrice,
-                    image: productImage,
-                };
-    
-                var cart = JSON.parse(localStorage.getItem("cart")) || [];
-    
-                // Добавьте информацию о товаре в корзину
-                cart.push(productInfo);
-    
-                localStorage.setItem("cart", JSON.stringify(cart));
-            });
-        });
-    </script>
-    
-    
-</body>
-</html>
+{% block script %}  
+    <script src="../static/cardCreate.js"></script>
+{% endblock %}
