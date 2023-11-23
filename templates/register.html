@@ -1,22 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %} 
-    <section class="main" style="height: 100vh;">
-        <div class="container">
-            <div class="window">
-                <p>Регистрация</p>
-                <form method="post">
-                    <input name="login" id="login" type="text" placeholder="Введите логин">
-                    <input name="password" id="password" type="password" placeholder="Введите пароль">
-                    <input name="password2" id="password2" type="password" placeholder="Подтвердите пароль">
-                    <input type="submit" value="Зарегистрироваться">
-                </form>
-            </div>
+<section class="main" style="height: 100vh;">
+    <div class="container">
+        <div class="window">
+            <p>Регистрация</p>
+            <form id="registrationForm" method="post" onsubmit="return validateForm()">
+                <div class="form-group">
+                    <label for="login">Логин:</label>
+                    <input name="login" id="login" type="text" placeholder="Введите логин" class="form-control">
+                    <span class="error-message" id="loginError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль:</label>
+                    <input name="password" id="password" type="password" placeholder="Введите пароль" class="form-control">
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password2">Подтвердите пароль:</label>
+                    <input name="password2" id="password2" type="password" placeholder="Подтвердите пароль" class="form-control">
+                    <span class="error-message" id="password2Error"></span>
+                </div>
+                <input type="submit" value="Зарегистрироваться">
+            </form>
         </div>
-    </section>
-    {% endblock %}
+    </div>
+</section>
+{% endblock %}
 
-    {% block script %}  
-    <script src="../static/validation.js"></script>
-    {% endblock %}
-    
+{% block script %}  
+    <script src="{{ url_for('static', filename='validation.js') }}"></script>
+{% endblock %}
